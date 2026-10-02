@@ -44,8 +44,17 @@ class Users extends BaseController
                 'errors' => [
                     'required' => 'Full name is required.'
                 ]
+            ],
+
+            'password' => [
+                'rules' => 'required|min_length[8]',
+                'errors' => [
+                    'required'   => 'Password is required.',
+                    'min_length' => 'Password must be at least 8 characters long.'
+                ]
             ]
         ];
+
 
         if (!$this->validate($rules)) {
             return redirect()
@@ -54,13 +63,23 @@ class Users extends BaseController
                 ->with('errors', $this->validator->getErrors());
         }
 
+
         $userModel = new UserModel();
 
+
         $userModel->insert([
-            'username'   => $this->request->getPost('username'),
-            'full_name'  => $this->request->getPost('full_name'),
+            'username' => $this->request->getPost('username'),
+
+            'full_name' => $this->request->getPost('full_name'),
+
+            'password' => password_hash(
+                $this->request->getPost('password'),
+                PASSWORD_DEFAULT
+            ),
+
             'created_at' => date('Y-m-d H:i:s')
         ]);
+
 
         return redirect()
             ->to('/users')
@@ -81,27 +100,31 @@ class Users extends BaseController
                 ->with('error', 'User not found.');
         }
 
+
         $data = [
             'title' => 'Edit User',
             'user'  => $user
         ];
 
+
         return view('users/edit', $data);
     }
 
 
-    // Update user and process avatar
+    // Update existing user
     public function update($id)
     {
         $userModel = new UserModel();
 
         $user = $userModel->find($id);
 
+
         if (!$user) {
             return redirect()
                 ->to('/users')
                 ->with('error', 'User not found.');
         }
+
 
         $rules = [
             'username' => [
@@ -133,6 +156,7 @@ class Users extends BaseController
             ]
         ];
 
+
         if (!$this->validate($rules)) {
             return redirect()
                 ->back()
@@ -151,32 +175,26 @@ class Users extends BaseController
         $avatar = $this->request->getFile('avatar');
 
 
+        // Process avatar only if a new image was uploaded
         if ($avatar && $avatar->isValid() && !$avatar->hasMoved()) {
 
-            // Generate a safe random filename
+            // Generate safe random filename
             $newName = $avatar->getRandomName();
 
-            // Temporary/original upload location
+
+            // Save avatar
             $avatar->move(
                 FCPATH . 'uploads/avatars',
                 $newName
             );
 
-            $imagePath = FCPATH . 'uploads/avatars/' . $newName;
 
-
-            // Prepare a display-ready version
-            service('image')
-                ->withFile($imagePath)
-                ->fit(300, 300, 'center')
-                ->save($imagePath);
-
-
-            // Save ONLY the filename in the database
+            // Store only filename in database
             $updateData['avatar'] = $newName;
         }
 
 
+        // Update user
         $userModel->update($id, $updateData);
 
 

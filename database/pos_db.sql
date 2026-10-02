@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2026 at 12:03 PM
+-- Generation Time: Oct 02, 2026 at 12:30 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -58,21 +58,22 @@ CREATE TABLE `users` (
   `username` varchar(50) NOT NULL,
   `full_name` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL,
-  `avatar` varchar(255) DEFAULT NULL
+  `avatar` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `full_name`, `created_at`, `avatar`) VALUES
-(1, 'MMouse', 'Mickey Mouse', '2026-09-25 22:24:20', '1790934923_15e6111308cfbf758c13.png'),
-(2, 'juan', 'Juan Dela Cruz', '2026-09-25 22:24:20', NULL),
-(3, 'maria', 'Maria Santos', '2026-09-25 22:24:20', NULL),
-(4, 'jose', 'Jose Marie Chan', '2026-09-25 22:24:20', NULL),
-(5, 'anna', 'Anna Frank', '2026-09-25 22:24:20', NULL),
-(6, 'mark', 'Mark Eric Mendoza', '2026-09-25 22:27:01', NULL),
-(7, 'TestUser', 'TestingUser', '2026-10-02 09:51:33', NULL);
+INSERT INTO `users` (`id`, `username`, `full_name`, `created_at`, `avatar`, `password`) VALUES
+(1, 'MMouse', 'Mickey Mouse', '2026-09-25 22:24:20', '1790934923_15e6111308cfbf758c13.png', '$2y$10$NWJbh9NqtQvd1ceGYCMFdef7imF0yCrN7ZYYGDWtGge.XMiGh7geq'),
+(2, 'juan', 'Juan Dela Cruz', '2026-09-25 22:24:20', NULL, ''),
+(3, 'maria', 'Maria Santos', '2026-09-25 22:24:20', NULL, ''),
+(4, 'jose', 'Jose Marie Chan', '2026-09-25 22:24:20', NULL, ''),
+(5, 'anna', 'Anna Frank', '2026-09-25 22:24:20', NULL, ''),
+(6, 'mark', 'Mark Eric Mendoza', '2026-09-25 22:27:01', NULL, ''),
+(7, 'TestUser', 'TestingUser', '2026-10-02 09:51:33', NULL, '');
 
 --
 -- Indexes for dumped tables

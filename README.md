@@ -71,6 +71,51 @@ The POS application was extended with create and edit functionality for customer
 
 6. Open `http://localhost:8080` in a browser.
 
+## TFA4 - Sessions and Authentication
+
+The POS application was extended with authentication and session-based access control.
+
+### Authentication Features
+
+- Login using username and password
+- Passwords stored using `password_hash()`
+- Password verification using `password_verify()`
+- Session creation after successful login
+- Session ID regeneration after login
+- Authentication filter for protected pages
+- Logout functionality
+- Session destruction on logout
+
+### Protected Pages
+
+The following sections require the user to be logged in:
+
+- Customer Accounts
+- Add New Customer
+- Edit Customer
+- User Accounts
+- Add New User
+- Edit User
+
+Users who attempt to access these pages while logged out are redirected to the login page.
+
+### Login
+
+Open:
+
+`http://localhost:8080/login`
+
+Use an account stored in the `users` table.
+
+### Running the Project
+
+1. Clone the repository.
+2. Run `composer install`.
+3. Import the SQL database file from the `database` folder.
+4. Configure the database connection in `.env`.
+5. Run `php spark serve`.
+6. Open `http://localhost:8080`.
+
 \#\# Routes
 
 \- \`/\` \- Home  

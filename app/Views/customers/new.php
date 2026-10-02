@@ -7,12 +7,22 @@
 
 <body>
 
-    <nav>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
+<nav>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+
+    <?php if (session()->get('logged_in')): ?>
+
         <a href="/customers">Customers</a>
         <a href="/users">Users</a>
-    </nav>
+        <a href="/logout">Logout</a>
+
+    <?php else: ?>
+
+        <a href="/login">Login</a>
+
+    <?php endif; ?>
+</nav>
 
     <div class="container">
 
