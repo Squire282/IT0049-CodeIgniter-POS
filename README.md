@@ -28,24 +28,48 @@ as temporary data sources.
 
 \#\# Installation
 
-1\. Clone or download the project.  
-2\. Open Command Prompt in the project directory.  
-3\. Install the required dependencies:
+## TFA3 - Forms, Validation, and File Upload
 
-   composer install
+The POS application was extended with create and edit functionality for customer and user accounts.
 
-4\. Create a copy of the \`env\` file and rename it to \`.env\`.  
-5\. Configure the base URL in \`.env\`:
+### Customer Features
 
-   app.baseURL \= 'http://localhost:8080/'
+- Add new customer
+- Full name validation
+- Email validation
+- Edit existing customer information
+- Preserve form values when validation fails
 
-6\. Start the CodeIgniter development server:
+### User Features
+
+- Add new user
+- Required username validation
+- Unique username validation
+- Required full name validation
+- Edit existing user information
+- Upload JPG or PNG profile pictures
+- Maximum avatar file size of 2MB
+- Display user avatars
+- Display a placeholder image when no avatar is available
+
+### Main Routes
+
+- `/customers` - Customer accounts
+- `/customers/new` - Add customer
+- `/users` - User accounts
+- `/users/new` - Add user
+
+### Running the Project
+
+1. Clone the repository.
+2. Run `composer install`.
+3. Import the SQL database file included in the `database` folder.
+4. Configure the database connection in `.env`.
+5. Run:
 
    php spark serve
 
-7\. Open the following URL:
-
-   http://localhost:8080/
+6. Open `http://localhost:8080` in a browser.
 
 \#\# Routes
 
