@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= $title ?></title>
+    <title><?= esc($title) ?></title>
     <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
 </head>
 
@@ -18,24 +18,83 @@
 
         <h1>Customer Accounts</h1>
 
-        <table>
-            <tr>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-            </tr>
+        <!-- Success Message -->
+        <?php if (session()->has('success')): ?>
 
-            <?php foreach ($customers as $customer): ?>
+            <div class="success">
+                <p><?= esc(session('success')) ?></p>
+            </div>
+
+        <?php endif; ?>
+
+
+        <!-- Error Message -->
+        <?php if (session()->has('error')): ?>
+
+            <div class="errors">
+                <p><?= esc(session('error')) ?></p>
+            </div>
+
+        <?php endif; ?>
+
+
+        <!-- Add New Customer -->
+        <p>
+            <a href="<?= site_url('customers/new') ?>">
+                Add New Customer
+            </a>
+        </p>
+
+
+        <?php if (!empty($customers)): ?>
+
+            <table>
 
                 <tr>
-                    <td><?= $customer['full_name'] ?></td>
-                    <td><?= $customer['email'] ?></td>
-                    <td><?= $customer['phone'] ?></td>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Created At</th>
+                    <th>Action</th>
                 </tr>
 
-            <?php endforeach; ?>
+                <?php foreach ($customers as $customer): ?>
 
-        </table>
+                    <tr>
+
+                        <td>
+                            <?= esc($customer['full_name']) ?>
+                        </td>
+
+                        <td>
+                            <?= esc($customer['email']) ?>
+                        </td>
+
+                        <td>
+                            <?= esc($customer['phone']) ?>
+                        </td>
+
+                        <td>
+                            <?= esc($customer['created_at']) ?>
+                        </td>
+
+                        <td>
+                            <a href="<?= site_url('customers/edit/' . $customer['id']) ?>">
+                                Edit
+                            </a>
+                        </td>
+
+                    </tr>
+
+                <?php endforeach; ?>
+
+            </table>
+
+        <?php else: ?>
+
+            <p>No customer records found.</p>
+
+        <?php endif; ?>
 
     </div>
 
